@@ -83,3 +83,11 @@ def estudio():
     if "locutor" not in session:
         return jsonify({"error": "Primero, POST /api/entrar"}), 401
     return jsonify({"locutor": session.get("locutor"), "siguiente": "Noticias del puerto, a las 13:00"})
+
+@app.route("/api/podcasts/<int:id>")
+def podcast_por_id(id):
+    # Buscamos el podcast por su ID
+    for p in leer_podcasts():
+        if p["id"] == id:
+            return jsonify(p)
+    return jsonify({"error": "No existe ese podcast"}), 404
